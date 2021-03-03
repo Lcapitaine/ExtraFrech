@@ -175,7 +175,7 @@ ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,Y, mtry=
     cl <- parallel::makeCluster(ncores)
     doParallel::registerDoParallel(cl)
     p=1
-    Importance.Curve <- foreach::foreach(p=1:length(Curve),.packages = "kmlShape" ,.combine = "cbind") %dopar% {
+    Importance.Curve <- foreach::foreach(p=1:length(Curve),.packages = "kmlShape" ,.combine = "c") %dopar% {
 
     for (k in 1:ncol(rf)){
 
@@ -198,7 +198,7 @@ ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,Y, mtry=
       Curve.perm[[p]] <- Curve[[p]]
     }
 
-    res <- c(names(Curve)[p],mean(Curve.err[,p]- xerror))
+    res <- mean(Curve.err[,p]- xerror)
   }
 
   parallel::stopCluster(cl)
@@ -213,7 +213,7 @@ ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,Y, mtry=
     doParallel::registerDoParallel(cl)
     p=1
 
-    Importance.Scalar <- foreach::foreach(p=1:ncol(Scalar$X) ,.combine = "cbind") %dopar% {
+    Importance.Scalar <- foreach::foreach(p=1:ncol(Scalar$X) ,.combine = "c") %dopar% {
 
       for (k in 1:ncol(rf)){
 
@@ -229,7 +229,7 @@ ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,Y, mtry=
         Scalar.perm$X[,p] <- Scalar$X[,p]
       }
 
-      res <- c(names(Scalar$X)[p],mean(Scalar.err[,p]- xerror))
+      res <- mean(Scalar.err[,p]- xerror)
     }
 
     parallel::stopCluster(cl)
@@ -243,23 +243,23 @@ ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,Y, mtry=
     doParallel::registerDoParallel(cl)
     p=1
 
-    Importance.Factor <- foreach::foreach(p=1:ncol(Factor$X) ,.combine = "cbind") %dopar% {
+    Importance.Factor <- foreach::foreach(p=1:ncol(Factor$X) ,.combine = "c") %dopar% {
 
       for (k in 1:ncol(rf)){
 
         BOOT <- rf[,k]$boot
         OOB <- setdiff(unique(Y$id), BOOT)
 
-        id_boot_Scalar <- which(Scalar$id %in% OOB)
+        id_boot_Factor <- which(Factor$id %in% OOB)
 
-        Factor.perm$X[id_boot_Scalar,p] = sample(Factor.perm$X[id_boot_Scalar,p])
+        Factor.perm$X[id_boot_Factor,p] = sample(Factor.perm$X[id_boot_Factor,p])
 
 
         Factor.err[k,p] <- OOB.tree(rf[,k], Curve=Curve, Scalar = Scalar, Factor=Factor.perm, Image=Image, Y=Y, timeScale=timeScale)
         Factor.perm$X[,p] <- Factor$X[,p]
       }
 
-      res <- c(names(Factor$X)[p],mean(Factor.err[,p]- xerror))
+      res <- mean(Factor.err[,p]- xerror)
     }
 
     parallel::stopCluster(cl)
@@ -273,14 +273,14 @@ ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,Y, mtry=
     doParallel::registerDoParallel(cl)
     p=1
 
-    Importance.Factor <- foreach::foreach(p=1:dim(Image$X)[3] ,.combine = "cbind") %dopar% {
+    Importance.Image <- foreach::foreach(p=1:dim(Image$X)[3] ,.combine = "c") %dopar% {
 
       for (k in 1:ncol(rf)){
 
         BOOT <- rf[,k]$boot
         OOB <- setdiff(unique(Y$id), BOOT)
 
-        id_boot_Image <- which(Scalar$id %in% OOB)
+        id_boot_Image <- which(Image$id %in% OOB)
 
         Image.perm$X[id_boot_Image,,p] = sample(Image.perm$X[id_boot_Image,,p])
 
@@ -289,7 +289,7 @@ ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,Y, mtry=
         Image.perm$X[,,p] <- Image$X[,,p]
       }
 
-      res <- c(p,mean(Image.err[,p]- xerror))
+      res <- mean(Image.err[,p]- xerror)
     }
 
     parallel::stopCluster(cl)
