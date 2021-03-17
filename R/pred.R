@@ -40,6 +40,7 @@ predict.ExtraFrech <- function(object, Curve=NULL,Scalar=NULL,Factor=NULL, Image
 
   parallel::stopCluster(cl)
 
+
   if (object$type=="scalar"){
     pred <- apply(pred.feuille, 2, "mean")
     return(pred)

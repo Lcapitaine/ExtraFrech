@@ -56,6 +56,7 @@ rf_para <- function(Curve=NULL, Scalar=NULL, Factor=NULL,Image=NULL,Y,mtry,ntree
 #' @param ncores [numeric]: Number of cores used to build Frechet randomized trees in parallel, defaulting to number of cores of the computer minus 1.
 #' @param ntry [numeric]: Only with \code{ERT=TRUE}, allows to manage with randomness of the trees.
 #' @param timeScale [numeric]: Allow to modify the time scale, increasing or decreasing the cost of the horizontal shift. If timeScale is very big, then the Frechet mean tends to the Euclidean distance. If timeScale is very small, then it tends to the Dynamic Time Warping. Only used when there are trajectories either in input or output.
+#' @param sigma [numeric]: vector of noise
 #' @param ... : parameters to be passed at low levels
 #'
 #' @import stringr
@@ -77,7 +78,8 @@ rf_para <- function(Curve=NULL, Scalar=NULL, Factor=NULL,Image=NULL,Y,mtry,ntree
 #' @export
 #'
 #'
-ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,Y, mtry=NULL, ntree=100,ncores=NULL, timeScale,ntry=3, ...){
+ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,
+                       Y, mtry=NULL, ntree=100,ncores=NULL, timeScale=NULL, sigma=NULL ,ntry=3, ...){
 
   Inputs = NULL
   if (is.null(Image)==FALSE){
@@ -85,7 +87,7 @@ ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,Y, mtry=
     im = Image$X
     for (j in 1:dim(im)[3]){
       M=N=sqrt(dim(im)[2])
-      Q= Image_transfo(M,N)
+      Q= Image_transfo(M,N, sigma=sigma[j])
       im[,,j]= transfo_lin(im[,,j],Q)
     }
     Image <- list(X=Image$X,id=Image$id)

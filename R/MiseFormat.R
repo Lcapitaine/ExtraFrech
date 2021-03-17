@@ -2,16 +2,17 @@
 #'
 #' @param M
 #' @param N
+#' @param sigma
 #'
 #' @keywords internal
-Image_transfo <- function(M,N){
+Image_transfo <- function(M,N, sigma){
   col = c(1:(M*N))%%N
   col[which(col==0)]=N
   ligne=rep(NA,M*N)
   for (i in 1:M){
     ligne[(N*(i-1)+1):(N*i)]=rep(i,N)
   }
-  D= exp(-(as.matrix(dist( cbind(ligne,col), diag = TRUE))^2)/2)/(2*pi)
+  D= exp(-(as.matrix(dist( cbind(ligne,col), diag = TRUE))^2)/(2*sigma^2))/(sigma*sqrt(2*pi))
   vp = eigen(D)
   return( vp$vectors%*% diag(sqrt(vp$values)) %*% t(vp$vectors))
 }

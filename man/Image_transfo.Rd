@@ -4,10 +4,10 @@
 \alias{Image_transfo}
 \title{Title}
 \usage{
-Image_transfo(M, N)
+Image_transfo(M, N, sigma)
 }
 \arguments{
-\item{N}{}
+\item{sigma}{}
 }
 \description{
 Title

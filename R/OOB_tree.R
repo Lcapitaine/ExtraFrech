@@ -43,7 +43,7 @@ OOB.tree <- function(tree, Curve=NULL, Scalar=NULL, Factor=NULL, Image=NULL ,Y, 
 
     if (is.null(Curve)==FALSE){
       Curve_courant = Curve
-      for (k in 1:length(Curve_courant)){
+      for (k in 1:length(Curve)){
         id_wXCurve <- which(Curve[[k]]$id %in% OOB)
         Curve_courant[[k]] <- Curve[[k]][id_wXCurve,]
       }

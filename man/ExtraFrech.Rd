@@ -13,7 +13,8 @@ ExtraFrech(
   mtry = NULL,
   ntree = 100,
   ncores = NULL,
-  timeScale,
+  timeScale = NULL,
+  sigma = NULL,
   ntry = 3,
   ...
 )
@@ -36,6 +37,8 @@ ExtraFrech(
 \item{ncores}{[numeric]: Number of cores used to build Frechet randomized trees in parallel, defaulting to number of cores of the computer minus 1.}
 
 \item{timeScale}{[numeric]: Allow to modify the time scale, increasing or decreasing the cost of the horizontal shift. If timeScale is very big, then the Frechet mean tends to the Euclidean distance. If timeScale is very small, then it tends to the Dynamic Time Warping. Only used when there are trajectories either in input or output.}
+
+\item{sigma}{[numeric]: vector of noise}
 
 \item{ntry}{[numeric]: Only with \code{ERT=TRUE}, allows to manage with randomness of the trees.}
 
