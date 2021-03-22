@@ -59,8 +59,9 @@ pred.FT <- function(tree, Curve=NULL,Scalar=NULL,Factor=NULL,Image=NULL,
       if (type=="scalar"){
 
         w= which(Scalar$id==id.pred[i])
-        distG <- abs(as.numeric(levels(centers$idG))[centers$idG]- Scalar$X[w,var.split])
-        distD <- abs(as.numeric(levels(centers$idD))[centers$idD]-Scalar$X[w,var.split])
+        distG <- abs(as.numeric(as.character(centers$idG)) - Scalar$X[w,var.split])
+        distD <- abs(as.numeric(as.character(centers$idD)) -Scalar$X[w,var.split])
+
       }
 
       if (type=="image"){
