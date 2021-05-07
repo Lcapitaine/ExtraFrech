@@ -133,14 +133,12 @@ ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,
   if (Y$type=="curve"){
     trajLong <- data.frame(id=Y$id,time=Y$time,traj=Y$Y)
     meanF = meanFrechet(trajLong = trajLong, timeScale = Y$timeScale)
+    dp <- as.data.frame(Curve.reduc.times(meanF$times, meanF$traj, Y$time[w]))
     imp = 0
     for (k in unique(Y$id)){
-
       w = which(Y$id==k)
-      dp <- as.data.frame(Curve.reduc.times(meanF$times, meanF$traj, Y$time[w]))
       imp <- imp + distFrechet(dp[,1], dp[,2],Y$time[w], Y$Y[w], timeScale = Y$timeScale)^2
     }
-
     imp.init = imp/length(unique(Y$id))
     varex = 1- mean(OOB.rf$err)/imp.init
   }
