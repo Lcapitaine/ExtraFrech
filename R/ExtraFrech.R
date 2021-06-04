@@ -299,7 +299,7 @@ ExtraFrech <- function(Curve=NULL,Scalar=NULL, Factor=NULL, Image=NULL ,
   Imp=list(Curve=Importance.Curve, Scalar=Importance.Scalar,
            Factor=Importance.Factor, Image= Importance.Image)
 
-  frf <- list(rf=rf, type=Y$type, Y=Y, levels=levels(Y$Y), time=temps, xerror=xerror, importance = Imp, varex=varex, OOB.err= OOB.rf$err, OOB.pred=OOB.rf$oob.pred)
+  frf <- list(rf=rf, type=Y$type, Y=Y, levels=levels(Y$Y), time=temps, xerror=xerror, importance = Imp, varex=varex, OOB.err= OOB.rf$err, OOB.pred=OOB.rf$oob.pred, timeScale=timeScale)
   class(frf) <- c("ExtraFrech")
   return(frf)
 }
