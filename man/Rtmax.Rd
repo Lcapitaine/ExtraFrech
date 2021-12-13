@@ -38,4 +38,3 @@ Rtmax(
 \description{
 Randomized Frechet tree
 }
-\keyword{internal}

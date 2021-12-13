@@ -2,11 +2,11 @@ Package: ExtraFrech
 Title: Fast extra Frechet trees
 Version: 0.1
 Authors@R: person("Louis","Capitaine", email = "louis.capitaine@u-bordeaux.fr", role = c("aut", "cre"))
-Description: A lot of good stufs 
+Description: A lot of good stuff.
 Depends: R (>= 3.6.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
-Imports: stats, kmlShape, foreach, doParallel, graphics, stringr,survival, DescTools, parallel, pbapply
+Imports: stats, kmlShape, foreach, doParallel, graphics, stringr, DescTools, parallel, pbapply
 Suggests: testthat (>= 2.1.0)

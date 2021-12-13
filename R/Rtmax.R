@@ -12,10 +12,9 @@
 #'
 #' @import kmlShape
 #' @import stringr
-#' @import survival
 #' @import stats
 #'
-#' @keywords internal
+#' @export
 Rtmax <- function(Curve=NULL, Scalar=NULL, Factor=NULL, Image=NULL,Y,mtry,ntry=3, timeScale, ...){
 
   V <- NULL
